@@ -4,10 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-// import api from './api'
-// console.log(api)
+import "./session"
+
+import {
+	httpWrap
+} from './api'
+console.log(httpWrap)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$http = httpWrap;
 
 /* eslint-disable no-new */
 new Vue({
