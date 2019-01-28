@@ -26,15 +26,14 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
 	config => {
 		// doLogin.do的時候不能帶上passport
-		// if (!~config.url.indexOf("/login/doLogin.do")) {
-		// 	// // 判断下当前web缓存中是否存在passport
-		// 	const passport = window.cacher.get("passport");
-		// 	if (passport) {
-		// 		// 判断是否存在token，如果存在的话，则每个http header都加上token
-		// 		config.headers.common["passport"] = passport; // 从缓存中获取此名称的值;
-		// 	}
-		// }
-		config.headers.common["passport"] = "XFaLPg8USxe8RY6WglCptJR7WcqyORB/eSD4ysWK8YkB7m5aHWpuetcjvcCWrae14zXcFVXRZdv6IoWdaWifUKEF9S5cERGDjFGA9aqlPVWJSbcqadCewnmycTMV7x6e8Gn3unTKxsAbDTp8++8jMe19Lje+2EHCjrZaPc21kDs="; // 从缓存中获取此名称的值;
+		if (!~config.url.indexOf("/login/doLogin.do")) {
+			// // 判断下当前web缓存中是否存在passport
+			const passport = window.cacher.get("passport");
+			if (passport) {
+				// 判断是否存在token，如果存在的话，则每个http header都加上token
+				config.headers.common["passport"] = passport; // 从缓存中获取此名称的值;
+			}
+		}
 		return config;
 	},
 	err => {
@@ -74,7 +73,7 @@ export const createAPI = (...apiMapData) => {
 								}
 							} else {
 								// string
-								if (item.name in clientParam) {
+								if (item in clientParam) {
 									param[item] = clientParam[item];
 								} else {
 									missingParams.push(item);
@@ -83,13 +82,18 @@ export const createAPI = (...apiMapData) => {
 						})
 						if (missingParams.length) {
 							const errMsg = `接口请求缺少参数：${missingParams.join(',')}`;
-							console.log(errMsg)
-							return false
+							throw new Error(errMsg)
+
 						}
 						const url = apiDomain + (conf.action[0] === "/" ? conf.action : '/' + conf.action);
 						const promise = axiosInstance.post(url, param);
 						promise
 							.then(resp => {
+								if (resp.headers && resp.headers.passport && window.cacher) {
+									// 更新写入最新的passport， 强制刷星user过期时间
+									window.cacher.set("passport", resp.headers.passport, 2 * 60 * 60 * 1000);
+									window.cacher.set("user", window.cacher.get("user"), 2 * 60 * 60 * 1000);
+								}
 								if (resp.status === 200) {
 									// http请求成功
 									if (resp.data.STATUS) {
@@ -107,7 +111,11 @@ export const createAPI = (...apiMapData) => {
 											return false
 
 										} else {
-											reject(resp.data.msg);
+											const error = {
+												code: resp.data.errorCode || resp.data.INFO || 500,
+												message: resp.data.msg || resp.data.message || resp.data.INFO
+											}
+											reject(error);
 										}
 									}
 								} else {
