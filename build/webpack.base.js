@@ -4,12 +4,20 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const env = process.env.NODE_ENV;
+const config = require("./config");
 
 module.exports = {
-	entry: "../src/main.js",
+	context: path.resolve(__dirname, '../'),
+	entry: "./src/main.js",
 	output: {
-		path: path.resolve(__dirname, "../dist"),
-		filename: env === "development" ? "[name].[hash:8].js" : "[name].[chunkhash:8].js"
+		path: config.prod.assetsRoot,
+		filename: env === "development" ? "[name].[hash:8].js" : "[name].[chunkhash:8].js",
+		//用于处理静态资源的引用地址问题，url 相对于 HTML 页面
+		publicPath: process.env.NODE_ENV === 'production' ?
+			config.prod.assetsPublicPath : config.dev.assetsPublicPath
+	},
+	resolve: {
+		extensions: [".js", ".vue", ".json"]
 	},
 	plugins: [
 		new CleanWebpackPlugin({
@@ -33,16 +41,46 @@ module.exports = {
 	],
 	module: {
 		rules: [{
-			test: /\.css$/,
-			use: [
-				env === "development" ? "style-loader" : MiniCssExtractPlugin.loader,
-				"css-loader",
-				'postcss-loader'
-			]
-		}, {
-			test: /\.js$/,
-			exclude: /node_modules/,
-			loader: "babel-loader"
-		}]
+				test: /\.vue$/,
+				loader: 'vue-loader',
+				options: vueLoaderConfig
+			},
+			{
+				test: /\.css$/,
+				use: [
+					env === "development" ? "style-loader" : MiniCssExtractPlugin.loader,
+					"css-loader",
+					'postcss-loader'
+				]
+			}, {
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel-loader"
+			},
+			{
+				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+				loader: 'url-loader',
+				options: {
+					limit: 10000,
+					name: utils.assetsPath('img/[name].[hash:8].[ext]')
+				}
+			},
+			{
+				test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+				loader: 'url-loader',
+				options: {
+					limit: 10000,
+					name: utils.assetsPath('media/[name].[hash:7].[ext]')
+				}
+			},
+			{
+				test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+				loader: 'url-loader',
+				options: {
+					limit: 10000,
+					name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+				}
+			}
+		]
 	}
 }
