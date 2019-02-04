@@ -1,6 +1,6 @@
 const path = require("path");
 const config = require("./config.js");
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCSSExtractPlugin = require("mini-css-extract-plugin")
 
 exports.assetsPath = function (_path) {
 	let assetsSubDirectory;
@@ -43,10 +43,7 @@ exports.cssLoaders = function (options) {
 		// Extract CSS when that option is specified
 		// (which is the case during production build)
 		if (options.extract) {
-			return ExtractTextPlugin.extract({
-				use: loaders,
-				fallback: 'vue-style-loader'
-			})
+			return [MiniCSSExtractPlugin.loader].concat(loaders)
 		} else {
 			return ['vue-style-loader'].concat(loaders)
 		}
@@ -64,4 +61,21 @@ exports.cssLoaders = function (options) {
 		stylus: generateLoaders('stylus'),
 		styl: generateLoaders('stylus')
 	}
+}
+
+// Generate loaders for standalone style files (outside of .vue)
+exports.styleLoaders = function (options) {
+	const output = [];
+	const loaders = exports.cssLoaders(options);
+	for (const extension in loaders) {
+		const loader = loaders[extension];
+		output.push({
+			test: new RegExp('\\.' + extension + "$"),
+			use: loader
+		})
+	}
+}
+
+exports.resolve = function (dir) {
+	return path.join(__dirname, "..", dir);
 }

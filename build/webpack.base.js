@@ -1,10 +1,11 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const env = process.env.NODE_ENV;
 const config = require("./config");
+const utils = require('./utils.js');
+const vueLoaderConfig = require("./vue-loader.conf");
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
 	context: path.resolve(__dirname, '../'),
@@ -17,15 +18,16 @@ module.exports = {
 			config.prod.assetsPublicPath : config.dev.assetsPublicPath
 	},
 	resolve: {
-		extensions: [".js", ".vue", ".json"]
+		extensions: [".js", ".vue", ".json"],
+		alias: {
+			'vue$': 'vue/dist/vue.esm.js',
+			"@": utils.resolve("src")
+		}
 	},
 	plugins: [
-		new CleanWebpackPlugin({
-			root: path.resolve(__dirname, '../')
-		}),
 		new HtmlWebpackPlugin({
 			title: "analyse",
-			template: "../index.html",
+			template: "index.html",
 			filename: "index.html",
 			minify: {
 				collapseWhitespace: true, // 压缩空格
@@ -33,11 +35,8 @@ module.exports = {
 				removeComents: true
 			}
 		}),
-		new MiniCssExtractPlugin({
-			filename: "[name].[contenthash:8].css",
-			chunkFilename: "[name].[contenthash:8].css"
-		}),
-		new webpack.HashedModuleIdsPlugin()
+		new webpack.HashedModuleIdsPlugin(),
+		new VueLoaderPlugin()
 	],
 	module: {
 		rules: [{
@@ -47,12 +46,9 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				use: [
-					env === "development" ? "style-loader" : MiniCssExtractPlugin.loader,
-					"css-loader",
-					'postcss-loader'
-				]
-			}, {
+				use: ['style-loader', 'css-loader']
+			},
+			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loader: "babel-loader"
@@ -82,5 +78,30 @@ module.exports = {
 				}
 			}
 		]
+	},
+	optimization: {
+		splitChunks: {
+			chunks: "async", // async all initial
+			minSize: 30000,
+			maxSize: 0,
+			minChunks: 1, // 最小公用模块次数，默认为1
+			maxAsyncRequests: 5,
+			maxInitialRequests: 3,
+			automaticNameDelimiter: "~",
+			name: true, // 分割的js名称
+			cacheGroups: { //缓存组，一个对象。它的作用在于，可以对不同的文件做不同的处理
+				commonjs: {
+					name: "vender", //输出的名字（提出来的第三方库）
+					test: /[\\/]node_modules[\\/]/,
+					chunks: "all"
+				}
+			}
+		},
+		runtimeChunk: {
+			"name": "manifest"
+		}
+	},
+	performance: {
+		hints: false
 	}
 }

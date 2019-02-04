@@ -11,6 +11,12 @@ module.exports = {
 		// set this to false - it *may* help
 		// https://vue-loader.vuejs.org/en/options.html#cachebusting
 		cacheBusting: true,
+
+		// Various Dev Server settings
+		host: "localhost",
+		port: 8080,
+		autoOpenBrowser: false,
+		devtool: 'cheap-module-eval-source-map'
 	},
 	prod: {
 		// template for index.html
@@ -21,5 +27,6 @@ module.exports = {
 		assetsPublicPath: "/",
 		// source Maps
 		productionSourceMap: true,
+		devtool: '#source-map',
 	}
 }
