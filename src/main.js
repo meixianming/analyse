@@ -6,16 +6,17 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import "./session"
+import Login from "~c/login/index"
 
 import {
 	httpWrap
 } from './api'
-console.log(httpWrap)
 
 Vue.config.productionTip = false
 
 Vue.prototype.$http = httpWrap;
-Vue.use(ElementUI)
+Vue.use(ElementUI);
+Vue.use(Login);
 
 /* eslint-disable no-new */
 new Vue({
