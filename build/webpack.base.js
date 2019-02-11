@@ -12,7 +12,7 @@ module.exports = {
 	entry: "./src/main.js",
 	output: {
 		path: config.prod.assetsRoot,
-		filename: env === "development" ? "[name].[hash:8].js" : "[name].[chunkhash:8].js",
+		filename: env === "development" ? "js/[name].[hash:8].js" : "js/[name].[chunkhash:8].js",
 		//用于处理静态资源的引用地址问题，url 相对于 HTML 页面
 		publicPath: process.env.NODE_ENV === 'production' ?
 			config.prod.assetsPublicPath : config.dev.assetsPublicPath
