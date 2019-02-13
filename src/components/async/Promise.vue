@@ -79,6 +79,29 @@
       }
 
       // promise内部实现重写 及all race
+    },
+    created() {
+      class Npromise {
+        constructor(fn) {
+          this.status = "pending";
+          this.data = undefined;
+          this.onResolveCallback = [];
+          const resolve = val => {
+            console.log(this);
+            if (this.status === "pending") {
+              this.status = "resolved";
+              this.data = val;
+              for (let i = 0; i < this.onResolveCallback.length; i++) {
+                this.onResolveCallback[i](val);
+              }
+            }
+          };
+          fn(resolve);
+        }
+        then(resolve) {
+          this.onResolveCallback.push(resolve);
+        }
+      }
     }
   };
 </script>
