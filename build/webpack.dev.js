@@ -3,6 +3,7 @@ const merge = require("webpack-merge");
 const base = require("./webpack.base");
 const config = require("./config");
 const utils = require("./utils");
+const path = require("path");
 
 module.exports = merge(base, {
 	module: {
@@ -14,6 +15,12 @@ module.exports = merge(base, {
 	devtool: config.dev.devtool,
 	devServer: {
 		clientLogLevel: "warning",
+		historyApiFallback: {
+			rewrites: [{
+				from: /.*/,
+				to: path.posix.join(config.dev.assetsPublicPath, 'index.html')
+			}, ],
+		},
 		hot: true,
 		compress: true,
 		host: config.dev.host,
