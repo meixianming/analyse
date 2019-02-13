@@ -1,7 +1,8 @@
 import Vue from "vue"
 import Router from "vue-router"
-import HelloWorld from "@/components/HelloWorld"
-import Await from "@/components/async/Await"
+import Index from "@/components/Index"
+import Async from "@/components/async/Index"
+import Pattern from "@/components/pattern/Index"
 Vue.use(Router)
 
 //  路由懒加载
@@ -14,11 +15,14 @@ export default new Router({
 	mode: "history",
 	routes: [{
 			path: '/',
-			component: HelloWorld
+			component: Index
 		},
 		{
-			path: '/await',
-			component: Await
+			path: '/async',
+			component: Async
+		}, {
+			path: "/pattern",
+			component: Pattern
 		}
 	]
 })

@@ -6,6 +6,7 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import "./session"
+import async from "~u/async"
 import Login from "~c/login/index"
 
 import {
@@ -15,6 +16,7 @@ import {
 Vue.config.productionTip = false
 
 Vue.prototype.$http = httpWrap;
+Vue.prototype.$async = async;
 Vue.use(ElementUI);
 Vue.use(Login);
 
