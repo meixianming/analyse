@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align:center">
+  <div>
     <h1>单例模式</h1>
     <p>保证一个类仅有一个实例，并提供一个访问它的全局访问点</p>
     <el-button type="primary"
