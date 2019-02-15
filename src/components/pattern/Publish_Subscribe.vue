@@ -42,16 +42,28 @@
               });
             }
           }
+          installTo(...objs) {
+            objs.forEach(obj => {
+              obj.addSubscriber = this.addSubscriber.bind(this);
+              obj.removeSubscriber = this.removeSubscriber.bind(this);
+            });
+          }
         }
         const o = new Observer();
-        o.addSubscriber("mei1", val => {
-          console.log(`sub1 get val:${val}`);
-        });
-        o.addSubscriber("mei1", val => {
-          console.log(`sub2 get val:${val}`);
-        });
+        const m1 = {
+          getM1: val => {
+            console.log(`m1 get val:${val}`);
+          }
+        };
+        const m2 = {
+          getM2: val => {
+            console.log(`m2 get val:${val}`);
+          }
+        };
+        o.installTo(m1, m2);
+        m1.addSubscriber("mei1", m1.getM1);
+        m2.addSubscriber("mei1", m2.getM2);
         o.publish("mei1", "1");
-        o.publish("mei2", "2");
       }
     }
   };
