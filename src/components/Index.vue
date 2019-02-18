@@ -9,6 +9,10 @@
     <el-button type="primary">
       <router-link to="/pattern">设计模式</router-link>
     </el-button>
+    <el-button type="primary">
+      <router-link to="/vue">vue</router-link>
+    </el-button>
+
   </el-row>
 </template>
 
