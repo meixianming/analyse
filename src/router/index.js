@@ -3,9 +3,12 @@ import Router from "vue-router"
 import Index from "@/components/Index"
 import Async from "@/components/async/Index"
 import Pattern from "@/components/pattern/Index"
-import VueIndex from "@/components/vue/Index";
+import VueIndex from "@/components/vue/Index"
 import VueCommunication from "@/components/vue/communication/Index"
 import SlotMixins from "@/components/vue/slotmixins/Index"
+import JsIndex from "@/components/js/Index"
+import This from "@/components/js/This"
+import ThrottleDebounce from "@/components/js/ThrottleDebounce"
 Vue.use(Router)
 
 //  路由懒加载
@@ -39,6 +42,17 @@ export default new Router({
 					component: SlotMixins
 				}
 			]
+		}, {
+			path: "/js",
+			component: JsIndex,
+			redirect: "/js/this",
+			children: [{
+				path: "this",
+				component: This
+			}, {
+				path: "throttleDebounce",
+				component: ThrottleDebounce
+			}]
 		}
 	]
 })

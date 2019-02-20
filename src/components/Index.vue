@@ -12,7 +12,9 @@
     <el-button type="primary">
       <router-link to="/vue">vue</router-link>
     </el-button>
-
+    <el-button type="primary">
+      <router-link to="/js">js</router-link>
+    </el-button>
   </el-row>
 </template>
 
