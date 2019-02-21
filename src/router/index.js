@@ -6,6 +6,7 @@ import Pattern from "@/components/pattern/Index"
 import VueIndex from "@/components/vue/Index"
 import VueCommunication from "@/components/vue/communication/Index"
 import SlotMixins from "@/components/vue/slotmixins/Index"
+import LifeCycle from "@/components/vue/LifeCycle"
 import JsIndex from "@/components/js/Index"
 import This from "@/components/js/This"
 import ThrottleDebounce from "@/components/js/ThrottleDebounce"
@@ -40,6 +41,10 @@ export default new Router({
 				{
 					path: "slotmixins",
 					component: SlotMixins
+				},
+				{
+					path: "lifecycle",
+					component: LifeCycle
 				}
 			]
 		}, {
