@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import "./session"
 import async from "~u/async"
 import Login from "~c/login/index"
+import VueScroll from "~p/scroll"
 
 import {
 	httpWrap
@@ -19,6 +20,7 @@ Vue.prototype.$http = httpWrap;
 Vue.prototype.$async = async;
 Vue.use(ElementUI);
 Vue.use(Login);
+Vue.use(VueScroll);
 
 /* eslint-disable no-new */
 new Vue({
