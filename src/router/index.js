@@ -7,11 +7,13 @@ import VueIndex from "~c/vue/Index"
 import VueCommunication from "~c/vue/communication/Index"
 import SlotMixins from "~c/vue/slotmixins/Index"
 import LifeCycle from "~c/vue/LifeCycle"
+import Vdom from "~c/vue/Vdom"
 import JsIndex from "~c/js/Index"
 import This from "~c/js/This"
 import ThrottleDebounce from "~c/js/ThrottleDebounce"
 import Optimization from "~c/optimization/Index"
 import PreLazy from "~c/optimization/PreLazy"
+import Algorithm from "~c/algorithm/Index"
 Vue.use(Router)
 
 //  路由懒加载
@@ -47,6 +49,10 @@ export default new Router({
 				{
 					path: "lifecycle",
 					component: LifeCycle
+				},
+				{
+					path: "vdom",
+					component: Vdom
 				}
 			]
 		}, {
@@ -68,6 +74,9 @@ export default new Router({
 				path: "prelazy",
 				component: PreLazy
 			}]
+		}, {
+			path: "/algorithm",
+			component: Algorithm
 		}
 	]
 })

@@ -15,6 +15,9 @@
     <el-button type="primary">
       <router-link to="/js">js</router-link>
     </el-button>
+    <el-button type="primary">
+      <router-link to="/algorithm">算法</router-link>
+    </el-button>
   </el-row>
 </template>
 
