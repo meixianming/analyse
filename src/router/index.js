@@ -25,6 +25,9 @@ import Border from "~c/css3/Border"
 import Background from "~c/css3/Background"
 import Column from "~c/css3/Column"
 
+import HTML5 from "~c/html5/Index"
+import Canvas from "~c/html5/Canvas"
+
 Vue.use(Router)
 
 //  路由懒加载
@@ -111,6 +114,15 @@ export default new Router({
 			}, {
 				path: "column",
 				component: Column
+			}]
+		},
+		{
+			path: "/html5",
+			component: HTML5,
+			redirect: "/html5/canvas",
+			children: [{
+				path: "canvas",
+				component: Canvas
 			}]
 		}
 	]

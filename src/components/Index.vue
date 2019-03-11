@@ -21,6 +21,9 @@
     <el-button type="primary">
       <router-link to="/css3">css3</router-link>
     </el-button>
+    <el-button type="primary">
+      <router-link to="/html5">HTML5</router-link>
+    </el-button>
   </el-row>
 </template>
 
