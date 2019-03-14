@@ -8,6 +8,8 @@
       <router-link to="border">border</router-link>
       <router-link to="background">background</router-link>
       <router-link to="column">column</router-link>
+      <router-link to="grid">栅格</router-link>
+      <router-link to="flex">flex</router-link>
     </el-row>
     <router-view></router-view>
   </div>

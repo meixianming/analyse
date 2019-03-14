@@ -24,6 +24,8 @@ import Animation from "~c/css3/Animation"
 import Border from "~c/css3/Border"
 import Background from "~c/css3/Background"
 import Column from "~c/css3/Column"
+import Grid from "~c/css3/Grid"
+import Flex from "~c/css3/Flex"
 
 import HTML5 from "~c/html5/Index"
 import Canvas from "~c/html5/Canvas"
@@ -114,6 +116,12 @@ export default new Router({
 			}, {
 				path: "column",
 				component: Column
+			},{
+				path: "grid",
+				component: Grid
+			},{
+				path: "flex",
+				component: Flex
 			}]
 		},
 		{
