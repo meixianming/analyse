@@ -1,3 +1,9 @@
+<style scoped>
+  button {
+    margin: 10px 0px;
+  }
+</style>
+
 <template>
   <el-row>
     <el-button type="primary">
@@ -23,6 +29,9 @@
     </el-button>
     <el-button type="primary">
       <router-link to="/html5">HTML5</router-link>
+    </el-button>
+    <el-button type="primary">
+      <router-link to="/layout">layout</router-link>
     </el-button>
   </el-row>
 </template>

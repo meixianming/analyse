@@ -26,6 +26,12 @@ import Background from "~c/css3/Background"
 import Column from "~c/css3/Column"
 import Grid from "~c/css3/Grid"
 import Flex from "~c/css3/Flex"
+import Fc from "~c/css3/Fc"
+import TextOverflow from "~c/css3/TextOverflow"
+
+import Layout from "~c/Layout/Index"
+import Grail from "~c/Layout/Grail"
+import DoubleWings from "~c/Layout/DoubleWings"
 
 import HTML5 from "~c/html5/Index"
 import Canvas from "~c/html5/Canvas"
@@ -122,6 +128,12 @@ export default new Router({
 			},{
 				path: "flex",
 				component: Flex
+			},{
+				path: "fc",
+				component: Fc
+			},{
+				path: "text-overflow",
+				component: TextOverflow
 			}]
 		},
 		{
@@ -131,6 +143,18 @@ export default new Router({
 			children: [{
 				path: "canvas",
 				component: Canvas
+			}]
+		},
+		{
+			path: "/layout",
+			component: Layout,
+			redirect: "/layout/grail",
+			children: [{
+				path: "grail",
+				component: Grail
+			},{
+				path: "double-wings",
+				component: DoubleWings
 			}]
 		}
 	]

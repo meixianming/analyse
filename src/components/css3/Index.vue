@@ -10,6 +10,8 @@
       <router-link to="column">column</router-link>
       <router-link to="grid">栅格</router-link>
       <router-link to="flex">flex</router-link>
+      <router-link to="fc">格式化上下文</router-link>
+      <router-link to="text-overflow">文本溢出</router-link>
     </el-row>
     <router-view></router-view>
   </div>

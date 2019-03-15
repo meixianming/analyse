@@ -5,20 +5,17 @@
   }
 
   /*-- 使用 cleafix 清除浮动 -- */
-  .row:before,
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
+  .row {
+    display: flex;
+    margin: 0px -10px;
   }
 
   [class*="col-"] {
-    float: left;
     min-height: 1px;
     width: 16.66%;
     box-sizing: border-box;
+    margin: 0px 10px;
     /*-- 设置列的左右间隙 -- */
-    padding: 12px;
     background-color: #ffdcdc;
   }
 
@@ -63,14 +60,7 @@
     <div class="grid-container">
       <div class="row">
         <div class="col-1">
-          <div class="row">
-            <div class="col-3">
-              <p>col-3</p>
-            </div>
-            <div class="col-3">
-              <p>col-3</p>
-            </div>
-          </div>
+          <p>col-1</p>
         </div>
         <div class="col-1">
           <p>col-1</p>
