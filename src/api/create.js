@@ -3,7 +3,7 @@ import {
 	stringify
 } from "qs";
 
-const apiDomain = `${window.location.protocol}//whrdd.f3322.net:8889`
+const apiDomain = `${window.location.protocol}//122112121212`
 axios.defaults.timeout = 30000
 axios.defaults.headers.common['reqClient'] = 'dj-web'
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
